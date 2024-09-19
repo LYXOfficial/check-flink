@@ -81,7 +81,7 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
     results = list(executor.map(check_link_accessibility, link_list))
 
 # 添加时延和SSL状态信息到每个链接项
-link_status = [{'name': result[0]['name'], 'link': result[0]['link'], 'latency': result[1], 'ssl_status': result[2]} for result in results]
+link_status = [{'name': result[0]['name'], 'link': result[0]['url'], 'latency': result[1], 'ssl_status': result[2]} for result in results]
 
 # 获取当前时间
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
