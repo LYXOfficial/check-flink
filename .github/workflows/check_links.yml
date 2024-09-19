@@ -5,6 +5,9 @@ on:
     - cron: '0 1 * * *'
     - cron: '0 13 * * *'
   workflow_dispatch:
+    push:
+      branches:
+        - main
 
 env:
   TZ: Asia/Shanghai
