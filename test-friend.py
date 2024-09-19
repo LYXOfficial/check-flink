@@ -71,7 +71,7 @@ if response.status_code == 200:
     data = response.json()  # 解析JSON数据
     link_list = []
     for item in data["data"]:
-        link_list += data['links']  # 提取所有的链接项
+        link_list += item['links']  # 提取所有的链接项
 else:
     print(f"Failed to retrieve data, status code: {response.status_code}")
     exit()
