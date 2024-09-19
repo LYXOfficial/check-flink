@@ -55,7 +55,7 @@ def handle_api_requests():
 # 检查链接是否可访问的函数并测量时延
 def check_link_accessibility(item):
     headers = {"User-Agent": user_agent}
-    link = item['link']
+    link = item['url']
     latency = -1
 
     # 1. 首先尝试直接访问
