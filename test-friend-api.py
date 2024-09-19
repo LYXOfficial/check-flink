@@ -30,7 +30,7 @@ def handle_api_requests():
     while not api_request_queue.empty():
         item = api_request_queue.get()
         headers = {"User-Agent": user_agent}
-        link = item['link']
+        link = item['url']
         api_url = api_url_template.format(api_key, link)
         # print(f"正在请求API：{api_url}")
 
@@ -87,13 +87,15 @@ def check_link_accessibility(item):
     return [item, latency]
 
 # 目标JSON数据的URL
-json_url = 'https://blog.liushen.fun/flink_count.json'
+json_url = 'https://blognext-end.yaria.top/get/flink/flinks'
 
 # 发送HTTP GET请求获取JSON数据
 response = requests.get(json_url)
 if response.status_code == 200:
     data = response.json()  # 解析JSON数据
-    link_list = data['link_list']  # 提取所有的链接项
+    link_list = []
+    for item in data["data"]:
+        link_list += item['links']  # 提取所有的链接项
 else:
     print(f"Failed to retrieve data, status code: {response.status_code}")
     exit()
@@ -106,7 +108,7 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
 handle_api_requests()
 
 # 添加时延信息到每个链接项
-link_status = [{'name': result[0]['name'], 'link': result[0]['link'], 'latency': result[0].get('latency', result[1])} for result in results]
+link_status = [{'name': result[0]['name'], 'link': result[0]['url'], 'latency': result[0].get('latency', result[1])} for result in results]
 
 # 获取当前时间
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
