@@ -17,7 +17,7 @@ backup_domain = "https://lius.me/"
 # 检查链接是否可访问的函数并测量时延和SSL状态
 def check_link_accessibility(item):
     headers = {"User-Agent": user_agent}
-    link = item['link']
+    link = item['url']
     ssl_status = False
     latency = -1
 
@@ -63,13 +63,15 @@ def check_link_accessibility(item):
     return [item, -1, False]  # 如果所有请求都失败，返回不可达状态
 
 # 目标JSON数据的URL
-json_url = 'https://blog.liushen.fun/flink_count.json'
+json_url = 'https://blognext-end.yaria.top/get/flink/flinks'
 
 # 发送HTTP GET请求获取JSON数据
 response = requests.get(json_url)
 if response.status_code == 200:
     data = response.json()  # 解析JSON数据
-    link_list = data['link_list']  # 提取所有的链接项
+    link_list = []
+    for item in data["data"]:
+        link_list += data['links']  # 提取所有的链接项
 else:
     print(f"Failed to retrieve data, status code: {response.status_code}")
     exit()
