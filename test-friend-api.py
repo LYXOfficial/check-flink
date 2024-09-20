@@ -138,5 +138,5 @@ response = requests.post(f"{backend_url}/update/flink/pushFlinkStatus", json={
 if response.status_code == 200:
     print("推送成功")
 else:
-    print("推送失败")
+    print("推送失败", response.text)
     exit(1)
