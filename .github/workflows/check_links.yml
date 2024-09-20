@@ -30,25 +30,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests
 
-    - name: Run Python script to check frined-links
+    - name: Run Python script to check flinks and push-state
       env:
         LIJIANGAPI_TOKEN: ${{ secrets.LIJIANGAPI_TOKEN }}
+        BLOG_SECRET: ${{ secrets.BLOG_SECRET }}
       run: python test-friend-api.py
 
-    - name: Configure git
-      run: |
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions"
-
-    - name: Commit and push
-      run: |
-        cp ./result.json static/
-        cd static
-        git init
-        git add .
-        git commit -m "⏱️GitHub Action每日定时更新"
-        git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:page
-    
     - name: Delete Workflow Runs
       uses: Mattraks/delete-workflow-runs@v2
       with:

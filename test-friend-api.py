@@ -111,22 +111,31 @@ handle_api_requests()
 link_status = [{'name': result[0]['name'], 'link': result[0]['url'], 'latency': result[0].get('latency', result[1])} for result in results]
 
 # 获取当前时间
-current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+current_time = datetime.no_sw().strftime("%Y-%m-%d %H:%M:%S")
 
 # 统计可访问和不可访问的链接数
 accessible_count = len([result for result in results if result[1] != -1])
 inaccessible_count = len([result for result in results if result[1] == -1])
 total_count = len(results)
 
-# 将结果写入JSON文件
-output_json_path = './result.json'
-with open(output_json_path, 'w', encoding='utf-8') as file:
-    json.dump({
-        'timestamp': current_time,
-        'accessible_count': accessible_count,
-        'inaccessible_count': inaccessible_count,
-        'total_count': total_count,
-        'link_status': link_status
-    }, file, ensure_ascii=False, indent=4)
+backend_url = "https://blognext-end.yaria.top"
+blog_secret = os.environ.get("BLOG_SECRET")
 
-print(f"检查完成，结果已保存至 '{output_json_path}' 文件。")
+print(f"检查完成，推送至 {backend_url}")
+
+# 发送POST请求到后端API
+response = requests.post(f"{backend_url}/updata/flink/pushFlinkStatus", json={
+    'data': {
+        'timestamp': current_time,
+        'accessibleCount': accessible_count,
+        'inaccessibleCount': inaccessible_count,
+        'totalCount': total_count,
+        'linkStatus': link_status
+    },
+    'secret': blog_secret
+})
+
+if response.status_code == 200:
+    print("推送成功")
+else:
+    print("推送失败")
