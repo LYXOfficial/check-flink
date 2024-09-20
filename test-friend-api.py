@@ -124,7 +124,7 @@ blog_secret = os.environ.get("BLOG_SECRET")
 print(f"检查完成，推送至 {backend_url}")
 
 # 发送POST请求到后端API
-response = requests.post(f"{backend_url}/updata/flink/pushFlinkStatus", json={
+response = requests.post(f"{backend_url}/update/flink/pushFlinkStatus", json={
     'data': {
         'timestamp': current_time,
         'accessibleCount': accessible_count,
