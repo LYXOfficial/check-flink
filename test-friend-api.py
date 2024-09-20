@@ -98,7 +98,7 @@ if response.status_code == 200:
         link_list += item['links']  # 提取所有的链接项
 else:
     print(f"Failed to retrieve data, status code: {response.status_code}")
-    exit()
+    exit(1)
 
 # 使用ThreadPoolExecutor并发检查多个链接
 with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
@@ -130,7 +130,7 @@ response = requests.post(f"{backend_url}/update/flink/pushFlinkStatus", json={
         'accessibleCount': accessible_count,
         'inaccessibleCount': inaccessible_count,
         'totalCount': total_count,
-        'linkStatus': link_status
+        'linkStatus': link_status["data"]
     },
     'secret': blog_secret
 })
