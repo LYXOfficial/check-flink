@@ -111,7 +111,7 @@ handle_api_requests()
 link_status = [{'name': result[0]['name'], 'link': result[0]['url'], 'latency': result[0].get('latency', result[1])} for result in results]
 
 # 获取当前时间
-current_time = datetime.no_sw().strftime("%Y-%m-%d %H:%M:%S")
+current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # 统计可访问和不可访问的链接数
 accessible_count = len([result for result in results if result[1] != -1])
