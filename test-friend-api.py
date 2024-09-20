@@ -108,7 +108,7 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
 handle_api_requests()
 
 # 添加时延信息到每个链接项
-link_status = [{'name': result[0]['name'], 'link': result[0]['url'], 'latency': result[0].get('latency', result[1])} for result in results]
+link_status = [{'name': result[0]['name'], 'link': result[0]['url'], 'latency': result[0].get('latency', result[1]), 'id': result[0]["_id"]} for result in results]
 
 # 获取当前时间
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
