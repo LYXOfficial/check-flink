@@ -130,7 +130,7 @@ response = requests.post(f"{backend_url}/update/flink/pushFlinkStatus", json={
         'accessibleCount': accessible_count,
         'inaccessibleCount': inaccessible_count,
         'totalCount': total_count,
-        'linkStatus': link_status["data"]
+        'linkStatus': link_status
     },
     'secret': blog_secret
 })
