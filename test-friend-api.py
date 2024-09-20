@@ -139,3 +139,4 @@ if response.status_code == 200:
     print("推送成功")
 else:
     print("推送失败")
+    exit(1)
