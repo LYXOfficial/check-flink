@@ -137,6 +137,7 @@ response = requests.post(f"{backend_url}/update/flink/pushFlinkStatus", json={
 
 if response.status_code == 200:
     print("推送成功")
+    requests.get("https://blog.yaria.top/refreshCache/flinks")
 else:
     print("推送失败", response.text)
     exit(1)
